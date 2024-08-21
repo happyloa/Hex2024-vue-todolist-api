@@ -13,7 +13,7 @@
 .formControls_label {
   font-size: 14px;
   font-weight: 700;
-  margin: 0 0 4px;
+  margin: 16px 0 4px;
 }
 
 .formControls_input {
@@ -33,7 +33,7 @@
   color: #d87355;
   font-size: 14px;
   font-weight: 700;
-  margin: 4px 0 16px;
+  margin: 4px 0 0;
 }
 
 .formControls_btnSubmit {
