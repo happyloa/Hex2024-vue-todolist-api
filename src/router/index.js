@@ -1,11 +1,12 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import TodosView from "../views/TodosView.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  // 使用 Hash Mode
+  history: createWebHashHistory(),
   routes: [
     // 當來到 / 路徑時，直接導向到 /login
     {
