@@ -29,6 +29,11 @@ import { RouterLink } from "vue-router";
 }
 
 @media (max-width: 576px) {
+  .aside {
+    width: auto;
+    height: auto;
+  }
+
   .hide-on-mobile {
     display: none;
   }
