@@ -1,0 +1,32 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
+
+<template>
+  <aside class="aside">
+    <RouterLink to="/">
+      <img src="/src/assets/images/logo.webp" alt="網站 Logo" />
+    </RouterLink>
+    <img
+      src="/src/assets/images/login-and-register.webp"
+      alt="登入註冊頁面裝飾圖片"
+      class="hide-on-mobile" />
+  </aside>
+</template>
+
+<style scoped>
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 386px;
+  height: 448px;
+}
+
+@media (max-width: 576px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+</style>
