@@ -86,7 +86,7 @@ const handleSubmit = async () => {
 <template>
   <!-- 登入表單模板 -->
   <form class="formControls" @submit.prevent="handleSubmit">
-    <h2 class="formControls_txt">最實用的線上代辦事項服務</h2>
+    <h2 class="formControls_txt">最實用的線上待辦事項服務</h2>
     <!-- Email 輸入框 -->
     <label class="formControls_label" for="email">Email</label>
     <input
