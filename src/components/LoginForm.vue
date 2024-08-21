@@ -50,6 +50,7 @@ import { RouterLink } from "vue-router";
   font-weight: normal;
   border: none;
   border-radius: 10px;
+  width: 304px;
   padding: 12px 16px;
   margin: 4px 0;
   transition: all 0.3s ease-in-out;
