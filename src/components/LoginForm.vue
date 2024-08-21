@@ -50,10 +50,15 @@ const handleSubmit = async () => {
         }
       );
 
-      // 從登入回應中獲取 Token 並保存到 Cookie 中，並顯示在 console 上
+      // 從登入回應中獲取 Token 與 nickname（暱稱），並保存到 Cookie 中，且顯示在 console 上
       const token = response.data.token;
+      const nickname = response.data.nickname;
+
       console.log("取得的 Token:", token);
-      setCookie("hexschoolTodo", token, 1);
+      console.log("取得的暱稱:", nickname);
+
+      setCookie("hexschoolTodo", token, 1); // 將 Token 存入 cookie
+      setCookie("nickname", nickname, 1); // 將暱稱存入 cookie
 
       // 登入成功顯示提示訊息並跳轉至 /todos
       Swal.fire({
