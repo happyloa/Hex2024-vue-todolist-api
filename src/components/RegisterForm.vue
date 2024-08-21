@@ -14,7 +14,7 @@ const checkPassword = ref("");
 const emailError = ref(false);
 const nicknameError = ref(false);
 const passwordError = ref(false);
-const checkPasswordError = ref(false);
+const checkPasswordError = ref("");
 
 const handleInput = (field) => {
   switch (field) {
@@ -26,9 +26,19 @@ const handleInput = (field) => {
       break;
     case "password":
       passwordError.value = !password.value;
+      checkPasswordError.value =
+        checkPassword.value && checkPassword.value !== password.value
+          ? "與輸入的密碼不符合"
+          : !checkPassword.value
+          ? "此欄位不可留空"
+          : "";
       break;
     case "checkPassword":
-      checkPasswordError.value = !checkPassword.value;
+      checkPasswordError.value = !checkPassword.value
+        ? "此欄位不可留空"
+        : checkPassword.value !== password.value
+        ? "與輸入的密碼不符合"
+        : "";
       break;
   }
 };
@@ -37,7 +47,11 @@ const handleSubmit = async () => {
   emailError.value = !email.value;
   nicknameError.value = !nickname.value;
   passwordError.value = !password.value;
-  checkPasswordError.value = !checkPassword.value;
+  checkPasswordError.value = !checkPassword.value
+    ? "此欄位不可留空"
+    : checkPassword.value !== password.value
+    ? "與輸入的密碼不符合"
+    : "";
 
   if (
     !emailError.value &&
@@ -118,7 +132,7 @@ const handleSubmit = async () => {
       @input="handleInput('checkPassword')"
       placeholder="請再次輸入密碼"
       required />
-    <span v-if="checkPasswordError">此欄位不可留空</span>
+    <span v-if="checkPasswordError">{{ checkPasswordError }}</span>
 
     <input
       class="formControls_btnSubmit"
