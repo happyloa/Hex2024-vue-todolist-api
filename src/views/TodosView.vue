@@ -20,6 +20,16 @@ const getCookie = (name) => {
   return null;
 };
 
+// 刪除所有 Cookie 的函數
+const deleteAllCookies = () => {
+  const cookies = document.cookie.split(";");
+  cookies.forEach((cookie) => {
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  });
+};
+
 // 處理登出邏輯
 const handleLogout = async () => {
   try {
@@ -34,6 +44,7 @@ const handleLogout = async () => {
       }
     );
     console.log(response.data.message); // 顯示登出回應
+    deleteAllCookies(); // 刪除所有 Cookie
     Swal.fire({
       title: "已成功登出，下次再見👋",
       icon: "success",
@@ -54,11 +65,6 @@ const handleLogout = async () => {
 // 在元件掛載後檢查 Token，並取得用戶暱稱
 onMounted(() => {
   tokenSignOut.value = getCookie("hexschoolTodo"); // 檢查是否有 Token
-  console.log(
-    tokenSignOut.value
-      ? "取得的 Token：" + tokenSignOut.value
-      : "目前沒有 Token"
-  ); // 將 Token 資訊顯示在 Console 中
 
   if (!tokenSignOut.value) {
     // 如果沒有 Token，顯示警告並跳轉至登入頁面
