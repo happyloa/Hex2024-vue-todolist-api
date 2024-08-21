@@ -89,7 +89,7 @@ onMounted(() => {
     <nav class="navbar">
       <img src="/src/assets/images/logo.webp" alt="網站 Logo" class="logo" />
       <ul class="user-name-and-logout">
-        <li class="user-name">{{ nickname }}的代辦</li>
+        <li class="user-name">{{ nickname }}的待辦清單</li>
         <!-- 使用動態的暱稱 -->
         <li class="logout" @click="handleLogout">登出</li>
       </ul>
