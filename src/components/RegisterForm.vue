@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const email = ref("");
 const nickname = ref("");
@@ -28,7 +32,7 @@ const handleInput = (field) => {
   }
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   emailError.value = !email.value;
   nicknameError.value = !nickname.value;
   passwordError.value = !password.value;
@@ -40,7 +44,20 @@ const handleSubmit = () => {
     !passwordError.value &&
     !checkPasswordError.value
   ) {
-    // 處理註冊邏輯
+    try {
+      const response = await axios.post(
+        "https://todolist-api.hexschool.io/users/sign_up",
+        {
+          email: email.value,
+          password: password.value,
+          nickname: nickname.value,
+        }
+      );
+      alert("恭喜您完成註冊！");
+      router.push("/");
+    } catch (error) {
+      alert("註冊失敗: " + (error.response?.data?.message || error.message));
+    }
   }
 };
 </script>

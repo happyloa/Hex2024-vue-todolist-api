@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -14,11 +18,26 @@ const handleInput = (field) => {
   }
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   emailError.value = !email.value;
   passwordError.value = !password.value;
+
   if (!emailError.value && !passwordError.value) {
-    // 處理登入邏輯
+    try {
+      const response = await axios.post(
+        "https://todolist-api.hexschool.io/users/sign_in",
+        {
+          email: email.value,
+          password: password.value,
+        }
+      );
+      alert("登入成功！");
+      router.push("/todos");
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "登入失敗，請稍後再試";
+      alert(errorMessage);
+    }
   }
 };
 </script>
