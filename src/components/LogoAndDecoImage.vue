@@ -5,7 +5,7 @@ import { RouterLink } from "vue-router";
 <template>
   <aside class="aside">
     <RouterLink to="/">
-      <img src="/src/assets/images/logo.webp" alt="網站 Logo" />
+      <img src="/src/assets/images/logo.webp" alt="網站 Logo" class="logo" />
     </RouterLink>
     <img
       src="/src/assets/images/login-and-register.webp"
@@ -20,12 +20,16 @@ import { RouterLink } from "vue-router";
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  width: 386px;
-  height: 448px;
+  max-width: 386px;
+  max-height: 448px;
 }
 
 .aside img {
   width: 100%;
+}
+
+.logo {
+  max-width: 312px;
 }
 
 @media (max-width: 576px) {
