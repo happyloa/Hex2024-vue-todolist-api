@@ -108,5 +108,5 @@ const handleSubmit = async () => {
 </template>
 
 <style scoped>
-@import url("/src/assets/css/LoginFormStyle.css");
+@import url("/src/assets/css/FormStyle.css");
 </style>
