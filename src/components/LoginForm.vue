@@ -29,58 +29,5 @@ import { RouterLink } from "vue-router";
 </template>
 
 <style scoped>
-.formControls {
-  display: flex;
-  flex-direction: column;
-}
-
-.formControls_txt {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
-
-.formControls_label {
-  font-size: 0.875rem;
-  font-weight: bold;
-  margin: 16px 0 4px 0;
-}
-
-.formControls_input {
-  font-weight: normal;
-  border: none;
-  border-radius: 10px;
-  width: 304px;
-  padding: 12px 16px;
-  margin: 4px 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.formControls_input:focus {
-  outline: 3px solid #fff;
-}
-
-.formControls span {
-  margin: 4px 0 16px 0;
-  color: #d87355;
-  font-size: 0.875rem;
-}
-
-.formControls_btnSubmit {
-  align-self: center;
-  border-radius: 10px;
-  background: #333333;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 12px 48px;
-  margin: 24px 0;
-}
-
-.formControls_btnLink {
-  color: #333333;
-  font-weight: bold;
-  text-align: center;
-}
+@import url("/src/assets/css/LoginFormStyle.css");
 </style>
