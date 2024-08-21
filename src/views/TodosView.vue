@@ -2,10 +2,11 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const router = useRouter();
 const tokenSignOut = ref("");
+const nickname = ref("");
 
 // 讀取 Cookie 的函數
 const getCookie = (name) => {
@@ -49,6 +50,11 @@ const handleLogout = async () => {
     });
   }
 };
+
+// 在元件掛載後取得用戶暱稱
+onMounted(() => {
+  nickname.value = getCookie("nickname"); // 從 Cookie 中讀取暱稱
+});
 </script>
 
 <template>
@@ -56,7 +62,8 @@ const handleLogout = async () => {
     <nav class="navbar">
       <img src="/src/assets/images/logo.webp" alt="網站 Logo" class="logo" />
       <ul class="user-name-and-logout">
-        <li class="user-name">王小明的代辦</li>
+        <li class="user-name">{{ nickname }}的代辦</li>
+        <!-- 使用動態的暱稱 -->
         <li class="logout" @click="handleLogout">登出</li>
       </ul>
     </nav>
