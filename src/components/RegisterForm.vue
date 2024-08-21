@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -53,10 +54,20 @@ const handleSubmit = async () => {
           nickname: nickname.value,
         }
       );
-      alert("恭喜您完成註冊！");
-      router.push("/");
+      Swal.fire({
+        title: "恭喜您完成註冊😁",
+        icon: "success",
+        confirmButtonText: "Ya～帶我去登入畫面",
+      }).then(() => {
+        router.push("/");
+      });
     } catch (error) {
-      alert("註冊失敗: " + (error.response?.data?.message || error.message));
+      Swal.fire({
+        title: "註冊失敗😭😭",
+        icon: "error",
+        text: error.response?.data?.message || error.message,
+        confirmButtonText: "我真的會謝",
+      });
     }
   }
 };
