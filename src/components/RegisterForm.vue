@@ -83,7 +83,7 @@ const handleSubmit = async () => {
         icon: "success",
         confirmButtonText: "Ya～帶我去登入畫面",
       }).then(() => {
-        router.push("/");
+        router.push("/login");
       });
     } catch (error) {
       // 處理錯誤並顯示錯誤訊息
@@ -159,7 +159,7 @@ const handleSubmit = async () => {
       @click="handleSubmit" />
 
     <!-- 跳轉到登入頁面 -->
-    <RouterLink to="/" class="formControls_btnLink">登入</RouterLink>
+    <RouterLink to="/login" class="formControls_btnLink">登入</RouterLink>
   </form>
 </template>
 
