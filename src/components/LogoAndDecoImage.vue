@@ -24,6 +24,10 @@ import { RouterLink } from "vue-router";
   height: 448px;
 }
 
+.aside img {
+  width: 100%;
+}
+
 @media (max-width: 576px) {
   .hide-on-mobile {
     display: none;
