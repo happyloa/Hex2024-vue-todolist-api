@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
+import TodoListContent from "@/components/todos/TodoListContent.vue";
+
 const router = useRouter();
 const tokenSignOut = ref("");
 const nickname = ref("");
@@ -92,6 +94,7 @@ onMounted(() => {
         <li class="logout" @click="handleLogout">登出</li>
       </ul>
     </nav>
+    <TodoListContent />
   </section>
 </template>
 
