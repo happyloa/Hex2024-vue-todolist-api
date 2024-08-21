@@ -16,6 +16,13 @@ const password = ref("");
 const emailError = ref(false);
 const passwordError = ref(false);
 
+// 設定 Cookie 的函數
+const setCookie = (name, value, days) => {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+};
+
 // 處理 input 事件，根據欄位是否為空設定錯誤狀態
 const handleInput = (field) => {
   if (field === "email") {
@@ -42,6 +49,12 @@ const handleSubmit = async () => {
           password: password.value,
         }
       );
+
+      // 從登入回應中獲取 Token 並保存到 Cookie 中，並顯示在 console 上
+      const token = response.data.token;
+      console.log("取得的 Token:", token);
+      setCookie("hexschoolTodo", token, 1);
+
       // 登入成功顯示提示訊息並跳轉至 /todos
       Swal.fire({
         title: "登入成功！",
