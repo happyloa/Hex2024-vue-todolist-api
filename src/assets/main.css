@@ -10,6 +10,11 @@
   list-style: none;
 }
 
+*::selection {
+  background-color: #d87355;
+  color: #ffffff;
+}
+
 a {
   text-decoration: none;
 }
