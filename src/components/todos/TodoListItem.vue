@@ -80,6 +80,11 @@ const filteredTodos = computed(() => {
   }
 });
 
+// 計算待完成的待辦事項數量
+const pendingTodosCount = computed(() => {
+  return todos.value.filter((todo) => !todo.status).length;
+});
+
 // 計算已完成的待辦事項數量
 const completedTodosCount = computed(() => {
   return todos.value.filter((todo) => todo.status).length; // 計算並返回已完成的待辦事項數量
@@ -138,8 +143,11 @@ onMounted(() => {
         </li>
       </ul>
       <div class="todoList_statistics">
-        <!-- 顯示已完成的待辦事項數量 -->
-        <p>{{ completedTodosCount }} 個已完成項目</p>
+        <!-- 顯示待完成與已完成的待辦事項數量 -->
+        <p>
+          {{ pendingTodosCount }} 個待完成項目 |
+          {{ completedTodosCount }} 個已完成項目
+        </p>
       </div>
     </div>
   </div>
