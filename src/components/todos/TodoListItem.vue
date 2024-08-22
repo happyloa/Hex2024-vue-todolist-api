@@ -4,8 +4,6 @@ import axios from "axios";
 
 // 定義待辦事項相關的 refs
 const todos = ref([]);
-const todoEdit = ref({});
-const editingId = ref(null); // 追踪正在編輯的待辦事項 ID
 const activeTab = ref("all"); // 定義當前選取的 tab
 
 // 讀取 Cookie 中的 Token
@@ -50,23 +48,6 @@ const deleteTodo = async (id) => {
   });
   console.log(`已刪除待辦事項：${todoToDelete.content}`);
   getTodos();
-};
-
-// 更新待辦事項
-const updateTodo = async (id) => {
-  const token = getCookie("hexschoolTodo");
-  const todo = todos.value.find((todo) => todo.id === id);
-  const oldContent = todo.content;
-  todo.content = todoEdit.value[id];
-  await axios.put(`https://todolist-api.hexschool.io/todos/${id}`, todo, {
-    headers: {
-      Authorization: token,
-    },
-  });
-  console.log(`已更新待辦事項：${oldContent} > ${todo.content}`);
-  getTodos();
-  todoEdit.value[id] = ""; // 清空更新值
-  editingId.value = null; // 結束編輯模式
 };
 
 // 切換待辦事項的完成狀態
@@ -146,17 +127,7 @@ onMounted(() => {
               type="checkbox"
               :checked="todo.status"
               @change="toggleStatus(todo.id)" />
-            <span
-              v-if="editingId !== todo.id"
-              @dblclick="enableEdit(todo.id, todo.content)">
-              {{ todo.content }}
-            </span>
-            <input
-              v-else
-              type="text"
-              v-model="todoEdit[todo.id]"
-              @blur="updateTodo(todo.id)"
-              @keydown="handleKeydown($event, todo.id)" />
+            <span>{{ todo.content }}</span>
           </label>
           <img
             src="/src/assets/icons/delete.svg"
