@@ -5,6 +5,7 @@ import axios from "axios";
 // 定義待辦事項相關的 refs
 const todos = ref([]);
 const todoEdit = ref({});
+const editingId = ref(null); // 追踪正在編輯的待辦事項 ID
 
 // 讀取 Cookie 中的 Token
 const getCookie = (name) => {
@@ -58,10 +59,8 @@ const updateTodo = async (id) => {
     },
   });
   getTodos();
-  todoEdit.value = {
-    ...todoEdit.value,
-    [id]: "",
-  };
+  todoEdit.value[id] = ""; // 清空更新值
+  editingId.value = null; // 結束編輯模式
 };
 
 // 切換待辦事項的完成狀態
@@ -77,6 +76,19 @@ const toggleStatus = async (id) => {
     }
   );
   getTodos();
+};
+
+// 設置為編輯模式
+const enableEdit = (id, content) => {
+  editingId.value = id;
+  todoEdit.value[id] = content;
+};
+
+// 處理鍵盤事件
+const handleKeydown = (event, id) => {
+  if (event.key === "Enter") {
+    updateTodo(id);
+  }
 };
 
 // 元件掛載後取得待辦事項列表
@@ -102,16 +114,21 @@ onMounted(() => {
               type="checkbox"
               :checked="todo.status"
               @change="toggleStatus(todo.id)" />
-            <span>{{ todo.content }}</span>
+            <span
+              v-if="editingId !== todo.id"
+              @dblclick="enableEdit(todo.id, todo.content)">
+              {{ todo.content }}
+            </span>
+            <input
+              v-else
+              type="text"
+              v-model="todoEdit[todo.id]"
+              @blur="updateTodo(todo.id)"
+              @keydown="handleKeydown($event, todo.id)" />
           </label>
           <img
             src="/src/assets/icons/delete.svg"
             @click="deleteTodo(todo.id)" />
-          <input
-            type="text"
-            placeholder="更新值"
-            v-model="todoEdit[todo.id]"
-            @change="updateTodo(todo.id)" />
         </li>
       </ul>
       <div class="todoList_statistics">
