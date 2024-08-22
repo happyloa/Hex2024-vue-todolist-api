@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onUnmounted } from "vue";
 import axios from "axios";
 
 import TodoInput from "./TodoInput.vue";
@@ -43,9 +43,15 @@ const checkTodos = async () => {
 // 計算是否有待辦事項
 const hasTodos = computed(() => todos.value.length > 0);
 
-// 元件掛載後，初次檢查待辦事項
+// 設置定時器，每兩秒檢查一次待辦事項
 onMounted(() => {
   checkTodos();
+  const interval = setInterval(checkTodos, 2000);
+
+  // 在元件卸載時清除定時器
+  onUnmounted(() => {
+    clearInterval(interval);
+  });
 });
 </script>
 
