@@ -97,6 +97,11 @@ const filteredTodos = computed(() => {
   }
 });
 
+// 計算已完成項目的數量
+const completedTodosCount = computed(() => {
+  return todos.value.filter((todo) => todo.status).length;
+});
+
 // 元件掛載後取得待辦事項列表
 onMounted(() => {
   getTodos();
@@ -159,9 +164,7 @@ onMounted(() => {
         </li>
       </ul>
       <div class="todoList_statistics">
-        <p>
-          {{ filteredTodos.filter((todo) => todo.status).length }} 個已完成項目
-        </p>
+        <p>{{ completedTodosCount }} 個已完成項目</p>
       </div>
     </div>
   </div>
