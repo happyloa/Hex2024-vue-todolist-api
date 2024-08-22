@@ -36,6 +36,8 @@
 
 .todoList_items {
   padding: 23px 17px 32px 24px;
+  max-height: 60vh;
+  overflow-y: scroll;
 }
 
 .todoList_items li {
@@ -96,4 +98,10 @@
 .todoList_statistics p {
   color: #333333;
   font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+  .todoList_items li img {
+    opacity: 1;
+  }
 }
