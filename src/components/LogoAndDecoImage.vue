@@ -3,8 +3,8 @@ import { RouterLink } from "vue-router";
 </script>
 
 <template>
-  <aside class="aside">
-    <RouterLink to="/">
+  <aside>
+    <RouterLink to="/login">
       <img src="/src/assets/images/logo.webp" alt="網站 Logo" class="logo" />
     </RouterLink>
     <img
@@ -15,7 +15,7 @@ import { RouterLink } from "vue-router";
 </template>
 
 <style scoped>
-.aside {
+aside {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,7 +24,7 @@ import { RouterLink } from "vue-router";
   max-height: 448px;
 }
 
-.aside img {
+aside img {
   width: 100%;
 }
 
@@ -33,7 +33,7 @@ import { RouterLink } from "vue-router";
 }
 
 @media (max-width: 576px) {
-  .aside {
+  aside {
     width: auto;
     height: auto;
   }
