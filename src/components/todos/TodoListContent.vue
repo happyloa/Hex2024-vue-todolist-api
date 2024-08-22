@@ -2,7 +2,6 @@
 import { ref, onMounted, computed, onUnmounted } from "vue";
 import axios from "axios";
 
-import TodoInput from "./TodoInput.vue";
 import TodoListItem from "./TodoListItem.vue";
 import TodoNoItem from "./TodoNoItem.vue";
 
@@ -57,7 +56,6 @@ onMounted(() => {
 
 <template>
   <main class="todoList_Content">
-    <TodoInput />
     <!-- 根據 hasTodos 計算屬性動態顯示 TodoListItem 或 TodoNoItem -->
     <TodoListItem v-if="hasTodos" />
     <TodoNoItem v-else />
