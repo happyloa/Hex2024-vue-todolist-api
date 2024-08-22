@@ -1,11 +1,10 @@
+<script setup>
+import TodoInput from "./TodoInput.vue";
+</script>
+
 <template>
   <main class="todoList_Content">
-    <div class="inputBox">
-      <input type="text" placeholder="請輸入待辦事項" />
-      <a href="#">
-        <img src="/src/assets/icons/plus.svg" />
-      </a>
-    </div>
+    <TodoInput />
   </main>
 </template>
 
@@ -13,34 +12,5 @@
 .todoList_Content {
   max-width: 500px;
   margin: 0 auto;
-}
-
-.inputBox {
-  border-radius: 10px;
-  position: relative;
-  margin-bottom: 16px;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-}
-
-.inputBox input {
-  background: #fff;
-  border: none;
-  border-radius: 10px;
-  position: relative;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 0 12px 16px;
-}
-
-.inputBox a {
-  display: block;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  background: #333333;
-  border-radius: 10px;
-  top: 4px;
-  right: 4px;
-  padding: 10px;
 }
 </style>
