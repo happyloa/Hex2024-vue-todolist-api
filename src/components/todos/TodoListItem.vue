@@ -2,8 +2,9 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-// 定義一個 ref 來保存待辦事項列表
+// 定義待辦事項相關的 refs
 const todos = ref([]);
+const todoEdit = ref({});
 
 // 讀取 Cookie 中的 Token
 const getCookie = (name) => {
@@ -17,9 +18,9 @@ const getCookie = (name) => {
   return null;
 };
 
-// 從 API 獲取待辦事項列表
+// 獲取待辦事項列表
 const getTodos = async () => {
-  const token = getCookie("hexschoolTodo"); // 從 Cookie 中讀取 Token
+  const token = getCookie("hexschoolTodo");
   try {
     const response = await axios.get(
       "https://todolist-api.hexschool.io/todos",
@@ -29,13 +30,56 @@ const getTodos = async () => {
         },
       }
     );
-    todos.value = response.data.data; // 將回應的待辦事項列表保存到 ref
+    todos.value = response.data.data;
   } catch (error) {
     console.error("無法獲取待辦事項列表:", error.message);
   }
 };
 
-// 元件掛載後立即獲取待辦事項列表
+// 刪除待辦事項
+const deleteTodo = async (id) => {
+  const token = getCookie("hexschoolTodo");
+  await axios.delete(`https://todolist-api.hexschool.io/todos/${id}`, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  getTodos();
+};
+
+// 更新待辦事項
+const updateTodo = async (id) => {
+  const token = getCookie("hexschoolTodo");
+  const todo = todos.value.find((todo) => todo.id === id);
+  todo.content = todoEdit.value[id];
+  await axios.put(`https://todolist-api.hexschool.io/todos/${id}`, todo, {
+    headers: {
+      Authorization: token,
+    },
+  });
+  getTodos();
+  todoEdit.value = {
+    ...todoEdit.value,
+    [id]: "",
+  };
+};
+
+// 切換待辦事項的完成狀態
+const toggleStatus = async (id) => {
+  const token = getCookie("hexschoolTodo");
+  await axios.patch(
+    `https://todolist-api.hexschool.io/todos/${id}/toggle`,
+    {},
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  getTodos();
+};
+
+// 元件掛載後取得待辦事項列表
 onMounted(() => {
   getTodos();
 });
@@ -56,10 +100,18 @@ onMounted(() => {
             <input
               class="todoList_input"
               type="checkbox"
-              :checked="todo.status" />
+              :checked="todo.status"
+              @change="toggleStatus(todo.id)" />
             <span>{{ todo.content }}</span>
           </label>
-          <img src="/src/assets/icons/delete.svg" />
+          <img
+            src="/src/assets/icons/delete.svg"
+            @click="deleteTodo(todo.id)" />
+          <input
+            type="text"
+            placeholder="更新值"
+            v-model="todoEdit[todo.id]"
+            @change="updateTodo(todo.id)" />
         </li>
       </ul>
       <div class="todoList_statistics">
