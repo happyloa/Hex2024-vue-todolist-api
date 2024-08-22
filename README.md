@@ -75,7 +75,7 @@ src/router
 
 ```
 src/components
-├── todos
+└── todos
     ├── TodoInput.vue              用來新增待辦事項的 input 元件
     ├── TodoListContent.vue        代辦事項清單整體容器
     ├── TodoListItem.vue           代辦事項列表
