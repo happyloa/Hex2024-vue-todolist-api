@@ -32,6 +32,7 @@ const getTodos = async () => {
       }
     );
     todos.value = response.data.data;
+    console.log("已獲取待辦事項清單");
   } catch (error) {
     console.error("無法獲取待辦事項列表:", error.message);
   }
@@ -40,11 +41,13 @@ const getTodos = async () => {
 // 刪除待辦事項
 const deleteTodo = async (id) => {
   const token = getCookie("hexschoolTodo");
+  const todoToDelete = todos.value.find((todo) => todo.id === id);
   await axios.delete(`https://todolist-api.hexschool.io/todos/${id}`, {
     headers: {
       Authorization: token,
     },
   });
+  console.log(`已刪除待辦事項：${todoToDelete.content}`);
   getTodos();
 };
 
@@ -52,12 +55,14 @@ const deleteTodo = async (id) => {
 const updateTodo = async (id) => {
   const token = getCookie("hexschoolTodo");
   const todo = todos.value.find((todo) => todo.id === id);
+  const oldContent = todo.content;
   todo.content = todoEdit.value[id];
   await axios.put(`https://todolist-api.hexschool.io/todos/${id}`, todo, {
     headers: {
       Authorization: token,
     },
   });
+  console.log(`已更新待辦事項：${oldContent} > ${todo.content}`);
   getTodos();
   todoEdit.value[id] = ""; // 清空更新值
   editingId.value = null; // 結束編輯模式
@@ -66,6 +71,7 @@ const updateTodo = async (id) => {
 // 切換待辦事項的完成狀態
 const toggleStatus = async (id) => {
   const token = getCookie("hexschoolTodo");
+  const todoToToggle = todos.value.find((todo) => todo.id === id);
   await axios.patch(
     `https://todolist-api.hexschool.io/todos/${id}/toggle`,
     {},
@@ -75,6 +81,7 @@ const toggleStatus = async (id) => {
       },
     }
   );
+  console.log(`待辦事項：「${todoToToggle.content}」已切換狀態`);
   getTodos();
 };
 
