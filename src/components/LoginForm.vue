@@ -119,7 +119,7 @@ const handleSubmit = async () => {
       @click="handleSubmit" />
 
     <!-- 跳轉到註冊帳號頁面 -->
-    <RouterLink to="/register" class="formControls_btnLink"
+    <RouterLink to="/register" class="formControls_btnLink link-underlined"
       >註冊帳號</RouterLink
     >
   </form>

@@ -159,7 +159,7 @@ const handleSubmit = async () => {
       @click="handleSubmit" />
 
     <!-- 跳轉到登入頁面 -->
-    <RouterLink to="/login" class="formControls_btnLink">登入</RouterLink>
+    <RouterLink to="/login" class="formControls_btnLink link-underlined">登入</RouterLink>
   </form>
 </template>
 
