@@ -1,10 +1,12 @@
 <script setup>
 import TodoInput from "./TodoInput.vue";
+import TodoListItem from "./TodoListItem.vue";
 </script>
 
 <template>
   <main class="todoList_Content">
     <TodoInput />
+    <TodoListItem />
   </main>
 </template>
 
