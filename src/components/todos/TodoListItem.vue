@@ -2,6 +2,8 @@
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 
+import TodoInput from "./TodoInput.vue";
+
 // 定義待辦事項列表的 ref 變數
 const todos = ref([]);
 
@@ -97,6 +99,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <TodoInput @todoAdded="getTodos" />
   <div class="todoList_list">
     <ul class="todoList_tab">
       <!-- 根據 activeTab 動態添加 active class，並切換 tab -->
