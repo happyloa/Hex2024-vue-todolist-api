@@ -35,7 +35,7 @@ const addTodo = async () => {
     );
     console.log("成功新增待辦事項：" + newTodo.value);
     newTodo.value = ""; // 清空輸入欄位
-    // 在此處可以觸發更新待辦事項列表的函數
+    location.reload(); // 重新整理頁面
   } catch (error) {
     // 錯誤處理
     console.error(
@@ -50,7 +50,7 @@ const addTodo = async () => {
   <div class="inputBox">
     <!-- 綁定輸入欄位到 newTodo -->
     <input type="text" placeholder="新增待辦事項" v-model="newTodo" />
-    <!-- 點擊按鈕時觸發 addTodo 方法 -->
+    <!-- 點擊按鈕時觸發 addTodo 方法，並重新整理頁面 -->
     <a href="#" @click.prevent="addTodo">
       <img src="/src/assets/icons/plus.svg" />
     </a>
