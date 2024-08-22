@@ -101,6 +101,10 @@
 }
 
 @media (max-width: 1024px) {
+  .todoList_items {
+    max-height: 75vh;
+  }
+
   .todoList_items li img {
     opacity: 1;
   }
