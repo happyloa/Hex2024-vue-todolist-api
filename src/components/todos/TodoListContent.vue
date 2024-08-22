@@ -43,7 +43,7 @@ const checkTodos = async () => {
 // 計算是否有待辦事項，返回 true 或 false
 const hasTodos = computed(() => todos.value.length > 0);
 
-// 設定定時器，每兩秒檢查一次待辦事項
+// 設定定時器，每 1.5 秒檢查一次待辦事項
 onMounted(() => {
   checkTodos(); // 初次檢查待辦事項
   const interval = setInterval(checkTodos, 1500); // 每 1.5 秒檢查一次
