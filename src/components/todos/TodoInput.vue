@@ -2,9 +2,10 @@
 import { ref } from "vue";
 import axios from "axios";
 
+// 定義一個 ref 來綁定新待辦事項的輸入值
 const newTodo = ref("");
 
-// 讀取 Cookie 中的 Token
+// 讀取 Cookie 中指定名稱的 Token
 const getCookie = (name) => {
   const nameEQ = name + "=";
   const ca = document.cookie.split(";");
@@ -16,17 +17,19 @@ const getCookie = (name) => {
   return null;
 };
 
+// 新增待辦事項的函數
 const addTodo = async () => {
-  const token = getCookie("hexschoolTodo");
-  if (!newTodo.value || !token) return;
+  const token = getCookie("hexschoolTodo"); // 從 Cookie 中讀取 Token
+  if (!newTodo.value || !token) return; // 若輸入為空或無 Token 則不執行
 
   try {
+    // 發送 POST 請求來新增待辦事項
     await axios.post(
       "https://todolist-api.hexschool.io/todos",
       { content: newTodo.value },
       {
         headers: {
-          Authorization: token,
+          Authorization: token, // 使用 Token 進行身份驗證
         },
       }
     );
@@ -34,6 +37,7 @@ const addTodo = async () => {
     newTodo.value = ""; // 清空輸入欄位
     // 在此處可以調用更新待辦事項列表的函數
   } catch (error) {
+    // 錯誤處理
     console.error(
       "新增待辦事項失敗:",
       error.response?.data?.message || error.message
@@ -44,7 +48,9 @@ const addTodo = async () => {
 
 <template>
   <div class="inputBox">
+    <!-- 綁定輸入欄位到 newTodo -->
     <input type="text" placeholder="請輸入待辦事項" v-model="newTodo" />
+    <!-- 點擊按鈕時調用 addTodo 方法 -->
     <a href="#" @click.prevent="addTodo">
       <img src="/src/assets/icons/plus.svg" />
     </a>

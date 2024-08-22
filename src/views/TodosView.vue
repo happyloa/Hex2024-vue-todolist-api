@@ -6,11 +6,11 @@ import { ref, onMounted } from "vue";
 
 import TodoListContent from "@/components/todos/TodoListContent.vue";
 
-const router = useRouter();
-const tokenSignOut = ref("");
-const nickname = ref("");
+const router = useRouter(); // 使用 Vue Router 進行路由跳轉
+const tokenSignOut = ref(""); // 保存從 Cookie 中讀取的 Token
+const nickname = ref(""); // 保存從 Cookie 中讀取的用戶暱稱
 
-// 讀取 Cookie 的函數
+// 讀取 Cookie 中指定名稱的值
 const getCookie = (name) => {
   const nameEQ = name + "=";
   const ca = document.cookie.split(";");
@@ -22,7 +22,7 @@ const getCookie = (name) => {
   return null;
 };
 
-// 刪除所有 Cookie 的函數
+// 刪除所有 Cookie
 const deleteAllCookies = () => {
   const cookies = document.cookie.split(";");
   cookies.forEach((cookie) => {
@@ -41,7 +41,7 @@ const handleLogout = async () => {
       {},
       {
         headers: {
-          Authorization: tokenSignOut.value,
+          Authorization: tokenSignOut.value, // 使用 Token 進行身份驗證
         },
       }
     );
@@ -95,6 +95,7 @@ onMounted(() => {
       </ul>
     </nav>
     <TodoListContent />
+    <!-- 待辦事項清單內容 -->
   </section>
 </template>
 
