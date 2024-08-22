@@ -49,7 +49,7 @@ const addTodo = async () => {
 <template>
   <div class="inputBox">
     <!-- 綁定輸入欄位到 newTodo -->
-    <input type="text" placeholder="請輸入待辦事項" v-model="newTodo" />
+    <input type="text" placeholder="新增待辦事項" v-model="newTodo" />
     <!-- 點擊按鈕時調用 addTodo 方法 -->
     <a href="#" @click.prevent="addTodo">
       <img src="/src/assets/icons/plus.svg" />
