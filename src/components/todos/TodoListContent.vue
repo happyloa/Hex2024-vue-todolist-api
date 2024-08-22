@@ -46,7 +46,7 @@ const hasTodos = computed(() => todos.value.length > 0);
 // 設定定時器，每兩秒檢查一次待辦事項
 onMounted(() => {
   checkTodos(); // 初次檢查待辦事項
-  const interval = setInterval(checkTodos, 2000); // 每兩秒檢查一次
+  const interval = setInterval(checkTodos, 1500); // 每 1.5 秒檢查一次
 
   // 在元件卸載時清除定時器，避免內存洩漏
   onUnmounted(() => {
