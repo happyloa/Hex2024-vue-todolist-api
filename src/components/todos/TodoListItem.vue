@@ -53,7 +53,7 @@ const deleteTodo = async (id) => {
       Authorization: token, // 在請求中附加 Token
     },
   });
-  console.log(`已刪除待辦事項：${todoToDelete.content}`);
+  console.log(`已刪除待辦事項：${todoToDelete.content}，ID 為：${todoToDelete.id}`);
   getTodos(); // 刪除後重新獲取待辦事項列表
 };
 
