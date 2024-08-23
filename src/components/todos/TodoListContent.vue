@@ -43,6 +43,16 @@ const checkTodos = async () => {
 // 計算是否有待辦事項，返回 true 或 false
 const hasTodos = computed(() => todos.value.length > 0);
 
+// 使用 ref 來引用 TodoListItem 元件，以便觸發其內部方法
+const todoListItemRef = ref(null);
+
+// 當接收到 TodoInput 發出的事件時，觸發 TodoListItem 的 getTodos 方法
+const handleTodoAdded = () => {
+  if (todoListItemRef.value) {
+    todoListItemRef.value.getTodos(); // 觸發 TodoListItem 元件內的 getTodos 方法
+  }
+};
+
 // 設定定時器，每 1.5 秒檢查一次待辦事項
 onMounted(() => {
   checkTodos(); // 初次檢查待辦事項
@@ -57,9 +67,11 @@ onMounted(() => {
 
 <template>
   <main class="todoList_Content">
-    <TodoInput />
+    <!-- 透過 todo-added emit 來觸發 handleTodoAdded 方法 -->
+    <TodoInput @todo-added="handleTodoAdded" />
     <!-- 根據 hasTodos 計算屬性動態顯示 TodoListItem 或 TodoNoItem -->
-    <TodoListItem v-if="hasTodos" />
+    <!-- 將 TodoListItem 綁定到 todoListItemRef，以便能夠觸發其方法 -->
+    <TodoListItem v-if="hasTodos" ref="todoListItemRef" />
     <TodoNoItem v-else />
   </main>
 </template>
