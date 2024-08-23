@@ -5,6 +5,9 @@ import axios from "axios";
 // 定義一個 ref 來綁定新待辦事項的輸入值
 const newTodo = ref("");
 
+// 使用 `emit` 函數來觸發事件，讓父元件能夠接收到此事件
+const emit = defineEmits(["todo-added"]);
+
 // 讀取 Cookie 中指定名稱的 Token
 const getCookie = (name) => {
   const nameEQ = name + "=";
@@ -35,7 +38,9 @@ const addTodo = async () => {
     );
     console.log("成功新增待辦事項：" + newTodo.value);
     newTodo.value = ""; // 清空輸入欄位
-    location.reload(); // 重新整理頁面
+
+    // 觸發自定義事件，通知父元件
+    emit("todo-added");
   } catch (error) {
     // 錯誤處理
     console.error(
@@ -50,7 +55,7 @@ const addTodo = async () => {
   <div class="inputBox">
     <!-- 綁定輸入欄位到 newTodo -->
     <input type="text" placeholder="新增待辦事項" v-model="newTodo" />
-    <!-- 點擊按鈕時觸發 addTodo 方法，並重新整理頁面 -->
+    <!-- 點擊按鈕時觸發 addTodo 方法 -->
     <a href="#" @click.prevent="addTodo">
       <img src="/src/assets/icons/plus.svg" />
     </a>
