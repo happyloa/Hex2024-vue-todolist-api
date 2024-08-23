@@ -39,6 +39,11 @@ const getTodos = async () => {
   }
 };
 
+// 使用 expose 來將 getTodos 方法暴露給父元件，以便可以從外部調用
+defineExpose({
+  getTodos,
+});
+
 // 刪除指定 ID 的待辦事項，然後重新獲取待辦事項列表
 const deleteTodo = async (id) => {
   const token = getCookie("hexschoolTodo");
