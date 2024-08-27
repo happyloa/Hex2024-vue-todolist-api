@@ -7,7 +7,6 @@ import showAlert from "@/components/showAlert.js"; // 匯入自定義的 showAle
 import TodoListContent from "@/components/todos/TodoListContent.vue";
 
 const router = useRouter(); // 使用 Vue Router 進行路由跳轉
-const tokenSignOut = ref(""); // 保存從 Cookie 中讀取的 Token
 const nickname = ref(""); // 保存從 Cookie 中讀取的用戶暱稱
 
 // 讀取 Cookie 中指定名稱的值
@@ -31,15 +30,8 @@ const deleteAllCookies = () => {
 // 處理登出邏輯
 const handleLogout = async () => {
   try {
-    tokenSignOut.value = getCookie("hexschoolTodo"); // 從 Cookie 中讀取 Token
     const response = await axios.post(
-      "https://todolist-api.hexschool.io/users/sign_out",
-      {},
-      {
-        headers: {
-          Authorization: tokenSignOut.value, // 使用 Token 進行身份驗證
-        },
-      }
+      "https://todolist-api.hexschool.io/users/sign_out"
     );
     console.log(response.data.message); // 顯示登出回應
     deleteAllCookies(); // 刪除所有 Cookie
@@ -58,9 +50,9 @@ const handleLogout = async () => {
 
 // 在元件掛載後檢查 Token，並取得用戶暱稱
 onMounted(() => {
-  tokenSignOut.value = getCookie("hexschoolTodo"); // 檢查是否有 Token
+  const token = getCookie("hexschoolTodo"); // 檢查是否有 Token
 
-  if (!tokenSignOut.value) {
+  if (!token) {
     // 如果沒有 Token，顯示警告並跳轉至登入頁面
     showAlert(
       "抓到！",
@@ -71,6 +63,7 @@ onMounted(() => {
       router.push("/login");
     });
   } else {
+    axios.defaults.headers.common["Authorization"] = token; // 為所有 API 加上 Authorization Token
     nickname.value = getCookie("nickname"); // 從 Cookie 中讀取暱稱
   }
 });
