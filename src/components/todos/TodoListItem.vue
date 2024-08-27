@@ -8,30 +8,10 @@ const todos = ref([]);
 // 定義當前選取的 tab，用於過濾待辦事項（'all', 'pending', 'completed'）
 const activeTab = ref("all");
 
-// 從 Cookie 中讀取指定名稱的 Token
-const getCookie = (name) => {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-};
-
 // 獲取待辦事項列表，並將其存儲在 todos ref 中
 const getTodos = async () => {
-  const token = getCookie("hexschoolTodo"); // 從 Cookie 中獲取 Token
   try {
-    const response = await axios.get(
-      "https://todolist-api.hexschool.io/todos",
-      {
-        headers: {
-          Authorization: token, // 將 Token 附加到請求標頭中
-        },
-      }
-    );
+    const response = await axios.get("https://todolist-api.hexschool.io/todos");
     todos.value = response.data.data; // 將返回的待辦事項列表存入 todos 中
     console.log("已獲取待辦事項清單");
   } catch (error) {
@@ -46,30 +26,18 @@ defineExpose({
 
 // 刪除指定 ID 的待辦事項，然後重新獲取待辦事項列表
 const deleteTodo = async (id) => {
-  const token = getCookie("hexschoolTodo");
   const todoToDelete = todos.value.find((todo) => todo.id === id); // 找到待刪除的待辦事項
-  await axios.delete(`https://todolist-api.hexschool.io/todos/${id}`, {
-    headers: {
-      Authorization: token, // 在請求中附加 Token
-    },
-  });
-  console.log(`已刪除待辦事項：${todoToDelete.content}，ID 為：${todoToDelete.id}`);
+  await axios.delete(`https://todolist-api.hexschool.io/todos/${id}`);
+  console.log(
+    `已刪除待辦事項：${todoToDelete.content}，ID 為：${todoToDelete.id}`
+  );
   getTodos(); // 刪除後重新獲取待辦事項列表
 };
 
 // 切換指定 ID 的待辦事項的完成狀態，然後重新獲取待辦事項列表
 const toggleStatus = async (id) => {
-  const token = getCookie("hexschoolTodo");
   const todoToToggle = todos.value.find((todo) => todo.id === id); // 找到待切換狀態的待辦事項
-  await axios.patch(
-    `https://todolist-api.hexschool.io/todos/${id}/toggle`,
-    {},
-    {
-      headers: {
-        Authorization: token, // 在請求中附加 Token
-      },
-    }
-  );
+  await axios.patch(`https://todolist-api.hexschool.io/todos/${id}/toggle`);
   console.log(`待辦事項：「${todoToToggle.content}」已切換狀態`);
   getTodos(); // 切換狀態後重新獲取待辦事項列表
 };
@@ -87,7 +55,7 @@ const filteredTodos = computed(() => {
 
 // 計算待完成的待辦事項數量
 const pendingTodosCount = computed(() => {
-  return todos.value.filter((todo) => !todo.status).length;
+  return todos.value.filter((todo) => !todo.status).length; // 計算並返回待完成的待辦事項數量
 });
 
 // 計算已完成的待辦事項數量

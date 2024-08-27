@@ -9,30 +9,10 @@ import TodoNoItem from "./TodoNoItem.vue";
 // 定義待辦事項列表的 ref 變數，將待辦事項儲存在此變數中
 const todos = ref([]);
 
-// 讀取 Cookie 中的 Token，通過名稱查找對應的 Cookie 值
-const getCookie = (name) => {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-};
-
 // 檢查是否有待辦事項，並將其結果儲存在 todos 變數中
 const checkTodos = async () => {
-  const token = getCookie("hexschoolTodo"); // 從 Cookie 中獲取 Token
   try {
-    const response = await axios.get(
-      "https://todolist-api.hexschool.io/todos",
-      {
-        headers: {
-          Authorization: token, // 在請求標頭中附加 Token
-        },
-      }
-    );
+    const response = await axios.get("https://todolist-api.hexschool.io/todos");
     todos.value = response.data.data; // 將待辦事項列表儲存在 todos 中
     console.log("已檢查待辦事項列表");
   } catch (error) {

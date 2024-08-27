@@ -8,34 +8,15 @@ const newTodo = ref("");
 // 使用 `emit` 函數來觸發事件，讓父元件能夠接收到此事件
 const emit = defineEmits(["todo-added"]);
 
-// 讀取 Cookie 中指定名稱的 Token
-const getCookie = (name) => {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-};
-
 // 新增待辦事項的函數
 const addTodo = async () => {
-  const token = getCookie("hexschoolTodo"); // 從 Cookie 中讀取 Token
-  if (!newTodo.value || !token) return; // 若輸入為空或無 Token 則不執行
+  if (!newTodo.value) return; // 若輸入為空則不執行
 
   try {
     // 發送 POST 請求來新增待辦事項
-    await axios.post(
-      "https://todolist-api.hexschool.io/todos",
-      { content: newTodo.value },
-      {
-        headers: {
-          Authorization: token, // 使用 Token 進行身份驗證
-        },
-      }
-    );
+    await axios.post("https://todolist-api.hexschool.io/todos", {
+      content: newTodo.value,
+    });
     console.log("成功新增待辦事項：" + newTodo.value);
     newTodo.value = ""; // 清空輸入欄位
 
