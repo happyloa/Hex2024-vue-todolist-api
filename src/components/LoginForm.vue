@@ -54,8 +54,8 @@ const handleSubmit = async () => {
       const token = response.data.token;
       const nickname = response.data.nickname;
 
-      console.log("取得的 Token:", token);
-      console.log("取得的暱稱:", nickname);
+      // console.log("取得的 Token:", token);
+      // console.log("取得的暱稱:", nickname);
 
       setCookie("hexschoolTodo", token, 1); // 將 Token 存入 cookie
       setCookie("nickname", nickname, 1); // 將暱稱存入 cookie
