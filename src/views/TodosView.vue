@@ -35,6 +35,10 @@ const handleLogout = async () => {
     );
     console.log(response.data.message); // 顯示登出回應
     deleteAllCookies(); // 刪除所有 Cookie
+
+    // 取消註冊全局的 Authorization Token
+    delete axios.defaults.headers.common["Authorization"];
+
     showAlert("已成功登出，下次再見👋", "", "success", "ㄅㄅ👋👋").then(() => {
       router.push("/login"); // 登出後跳轉至登入畫面
     });
