@@ -27,19 +27,31 @@ defineExpose({
 // 刪除指定 ID 的待辦事項，然後重新獲取待辦事項列表
 const deleteTodo = async (id) => {
   const todoToDelete = todos.value.find((todo) => todo.id === id); // 找到待刪除的待辦事項
-  await axios.delete(`https://todolist-api.hexschool.io/todos/${id}`);
-  console.log(
-    `已刪除待辦事項：${todoToDelete.content}，ID 為：${todoToDelete.id}`
-  );
-  getTodos(); // 刪除後重新獲取待辦事項列表
+  try {
+    await axios.delete(`https://todolist-api.hexschool.io/todos/${id}`);
+    console.log(
+      `已刪除待辦事項：${todoToDelete.content}，ID 為：${todoToDelete.id}`
+    );
+    getTodos(); // 刪除後重新獲取待辦事項列表
+  } catch (error) {
+    console.error(
+      `刪除待辦事項失敗：${todoToDelete.content}，ID 為：${todoToDelete.id}，錯誤訊息：${error.message}`
+    );
+  }
 };
 
 // 切換指定 ID 的待辦事項的完成狀態，然後重新獲取待辦事項列表
 const toggleStatus = async (id) => {
   const todoToToggle = todos.value.find((todo) => todo.id === id); // 找到待切換狀態的待辦事項
-  await axios.patch(`https://todolist-api.hexschool.io/todos/${id}/toggle`);
-  console.log(`待辦事項：「${todoToToggle.content}」已切換狀態`);
-  getTodos(); // 切換狀態後重新獲取待辦事項列表
+  try {
+    await axios.patch(`https://todolist-api.hexschool.io/todos/${id}/toggle`);
+    console.log(`待辦事項：「${todoToToggle.content}」已切換狀態`);
+    getTodos(); // 切換狀態後重新獲取待辦事項列表
+  } catch (error) {
+    console.error(
+      `切換待辦事項狀態失敗：「${todoToToggle.content}」，ID 為：${todoToToggle.id}，錯誤訊息：${error.message}`
+    );
+  }
 };
 
 // 根據選取的 tab 過濾待辦事項列表
