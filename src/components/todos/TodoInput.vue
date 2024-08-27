@@ -10,14 +10,14 @@ const emit = defineEmits(["todo-added"]);
 
 // 新增待辦事項的函數
 const addTodo = async () => {
-  if (!newTodo.value) return; // 若輸入為空則不執行
+  if (!newTodo.value && !token) return; // 若輸入為空以及沒有 Token 的話則不執行
 
   try {
     // 發送 POST 請求來新增待辦事項
     await axios.post("https://todolist-api.hexschool.io/todos", {
-      content: newTodo.value,
+      content: newTodo.value.trim(), // 移除字串的前後空白
     });
-    console.log("成功新增待辦事項：" + newTodo.value);
+    console.log("成功新增待辦事項：" + newTodo.value.trim());
     newTodo.value = ""; // 清空輸入欄位
 
     // 觸發自定義事件，通知父元件
