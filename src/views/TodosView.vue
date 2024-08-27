@@ -1,8 +1,8 @@
 <script setup>
-import axios from "axios";
-import Swal from "sweetalert2";
-import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
+import showAlert from "@/components/showAlert.js"; // 匯入自定義的 showAlert 函數
 
 import TodoListContent from "@/components/todos/TodoListContent.vue";
 
@@ -47,20 +47,16 @@ const handleLogout = async () => {
     );
     console.log(response.data.message); // 顯示登出回應
     deleteAllCookies(); // 刪除所有 Cookie
-    Swal.fire({
-      title: "已成功登出，下次再見👋",
-      icon: "success",
-      confirmButtonText: "ㄅㄅ👋👋",
-    }).then(() => {
+    showAlert("已成功登出，下次再見👋", "", "success", "ㄅㄅ👋👋").then(() => {
       router.push("/login"); // 登出後跳轉至登入畫面
     });
   } catch (error) {
-    Swal.fire({
-      title: "登出失敗",
-      icon: "error",
-      text: error.response?.data?.message || "請稍後再試",
-      confirmButtonText: "OK",
-    });
+    showAlert(
+      "登出失敗",
+      error.response?.data?.message || "請稍後再試",
+      "error",
+      "OK"
+    );
   }
 };
 
@@ -70,12 +66,12 @@ onMounted(() => {
 
   if (!tokenSignOut.value) {
     // 如果沒有 Token，顯示警告並跳轉至登入頁面
-    Swal.fire({
-      title: "抓到！",
-      icon: "warning",
-      text: "沒登入還想進來啊？下去吧！滾！",
-      confirmButtonText: "被抓到惹ㄎㄎ",
-    }).then(() => {
+    showAlert(
+      "抓到！",
+      "沒登入還想進來啊？下去吧！滾！",
+      "warning",
+      "被抓到惹ㄎㄎ"
+    ).then(() => {
       router.push("/login");
     });
   } else {

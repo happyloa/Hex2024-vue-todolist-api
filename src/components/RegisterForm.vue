@@ -1,9 +1,9 @@
 <script setup>
-// 匯入必要的 Vue、axios、Vue Router 和 SweetAlert2 模組
+// 匯入必要的 Vue、axios、Vue Router 套件
 import { ref } from "vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
-import Swal from "sweetalert2";
+import axios from "axios";
+import showAlert from "./showAlert.js"; // 匯入自定義的 showAlert 函數
 
 // 初始化 Vue Router 來進行路由跳轉
 const router = useRouter();
@@ -78,21 +78,22 @@ const handleSubmit = async () => {
         }
       );
       // 註冊成功顯示提示訊息並跳轉至登入頁面
-      Swal.fire({
-        title: "恭喜您完成註冊😁",
-        icon: "success",
-        confirmButtonText: "Ya～帶我去登入畫面",
-      }).then(() => {
+      showAlert(
+        "恭喜您完成註冊😁",
+        "歡迎使用我們的 To-Do List 服務",
+        "success",
+        "Ya～帶我去登入畫面"
+      ).then(() => {
         router.push("/login");
       });
     } catch (error) {
       // 處理錯誤並顯示錯誤訊息
-      Swal.fire({
-        title: "註冊失敗😭😭",
-        icon: "error",
-        text: error.response?.data?.message || error.message,
-        confirmButtonText: "我真的會謝",
-      });
+      showAlert(
+        "註冊失敗😭😭",
+        error.response?.data?.message || error.message,
+        "error",
+        "我真的會謝"
+      );
     }
   }
 };
@@ -159,7 +160,9 @@ const handleSubmit = async () => {
       @click="handleSubmit" />
 
     <!-- 跳轉到登入頁面 -->
-    <RouterLink to="/login" class="formControls_btnLink link-underlined">登入</RouterLink>
+    <RouterLink to="/login" class="formControls_btnLink link-underlined"
+      >登入</RouterLink
+    >
   </form>
 </template>
 

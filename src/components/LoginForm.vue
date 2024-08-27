@@ -1,9 +1,9 @@
 <script setup>
-// 匯入必要的 Vue、axios、Vue Router 和 SweetAlert2 模組
+// 匯入必要的 Vue、axios、Vue Router 套件
 import { ref } from "vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
-import Swal from "sweetalert2";
+import axios from "axios";
+import showAlert from "./showAlert.js"; // 匯入自定義的 showAlert 函數
 
 // 初始化 Vue Router 來進行路由跳轉
 const router = useRouter();
@@ -61,23 +61,22 @@ const handleSubmit = async () => {
       setCookie("nickname", nickname, 1); // 將暱稱存入 cookie
 
       // 登入成功顯示提示訊息並跳轉至 /todos
-      Swal.fire({
-        title: "登入成功！",
-        icon: "success",
-        confirmButtonText: "水喔💯，帶我去待辦事項清單吧～",
-      }).then(() => {
+      showAlert(
+        "登入成功！",
+        "",
+        "success",
+        "水喔💯，帶我去待辦事項清單吧～"
+      ).then(() => {
         router.push("/todos");
       });
     } catch (error) {
       // 處理錯誤並顯示錯誤訊息
-      const errorMessage =
-        error.response?.data?.message || "登入失敗，請稍後再試";
-      Swal.fire({
-        title: "錯誤🥲",
-        icon: "error",
-        text: errorMessage,
-        confirmButtonText: "QQ好喔",
-      });
+      showAlert(
+        "錯誤🥲",
+        error.response?.data?.message || "登入失敗，請稍後再試",
+        "error",
+        "QQ好喔"
+      );
     }
   }
 };
