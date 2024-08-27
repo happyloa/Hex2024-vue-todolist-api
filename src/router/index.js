@@ -8,6 +8,10 @@ const router = createRouter({
   // 使用 Hash Mode
   history: createWebHashHistory(),
   routes: [
+    {
+      path: "/:catchAll(.*)", // 捕捉所有未定義的路徑
+      redirect: "/login", // 重定向到登入畫面
+    },
     // 當來到 / 路徑時，直接導向到 /login
     {
       path: "/",
