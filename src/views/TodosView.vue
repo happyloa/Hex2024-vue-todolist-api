@@ -12,23 +12,19 @@ const nickname = ref(""); // 保存從 Cookie 中讀取的用戶暱稱
 
 // 讀取 Cookie 中指定名稱的值
 const getCookie = (name) => {
-  const nameEQ = name + "=";
-  const ca = document.cookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) === " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
+  const regex = new RegExp(
+    `(?:(?:^|.*;\\s*)${name}\\s*\\=\\s*([^;]*).*$)|^.*$`
+  );
+  return document.cookie.replace(regex, "$1") || null;
 };
 
 // 刪除所有 Cookie
 const deleteAllCookies = () => {
-  const cookies = document.cookie.split(";");
-  cookies.forEach((cookie) => {
-    const eqPos = cookie.indexOf("=");
-    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  document.cookie.split(";").forEach((cookie) => {
+    document.cookie = cookie.replace(
+      /=.*/,
+      "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"
+    );
   });
 };
 
