@@ -93,7 +93,9 @@ src/components
 
 ```
 public
+├── revision                       助教修改建議截圖
 ├── CNAME                          網站的 DNS CNAME 紀錄
+├── og-image.webp                  Open Graph 縮圖
 └── favicon.ico                    網站 favicon
 ```
 
@@ -101,7 +103,7 @@ public
 src/assets
 ├── css                            獨立出來的較長的樣式檔案
 ├── icons                          存放新增與刪除圖示
-├── images                         存放裝飾圖片，網站 Logo 也在這
+├── images                         存放裝飾圖片。網站 Logo 也在這
 ├── main.css                       網站整體樣式，有引入思源黑體 API
 └── scrollBar.css                  頁面卷軸樣式
 ```
