@@ -114,3 +114,11 @@ src/assets
 - [Vue Router](https://router.vuejs.org/)
 - [TinyPNG](https://tinypng.com/)
 - [ChatGPT 4o](https://openai.com/)
+
+## 2024/08/26 助教修改建議
+
+![](https://github.com/happyloa/Hex2024-vue-todolist-api/blob/main/public/revision/suggestion1.png?raw=true)
+![](https://github.com/happyloa/Hex2024-vue-todolist-api/blob/main/public/revision/suggestion2.png?raw=true)
+![](https://github.com/happyloa/Hex2024-vue-todolist-api/blob/main/public/revision/suggestion34.png?raw=true)
+![](https://github.com/happyloa/Hex2024-vue-todolist-api/blob/main/public/revision/suggestion567.png?raw=true)
+![](https://github.com/happyloa/Hex2024-vue-todolist-api/blob/main/public/revision/suggestion81011.png?raw=true)
